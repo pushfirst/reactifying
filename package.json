@@ -2,8 +2,10 @@
   "name": "react-orgasm",
   "version": "1.0.0",
   "description": "This is my react play arena.",
-  "main": "App.js",
   "scripts": {
+    "dev": "vite --port 5174",
+    "build:prod": "vite build",
+    "preview:prod": "vite preview",
     "test": "jest"
   },
   "repository": {
@@ -19,5 +21,14 @@
   "homepage": "https://github.com/pushfirst/react-orgasm#readme",
   "devDependencies": {
     "vite": "^7.1.12"
-  }
+  },
+  "dependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "browserlist": [
+    "last 2 versions",
+    "not dead",
+    ">0.2%"
+  ]
 }
