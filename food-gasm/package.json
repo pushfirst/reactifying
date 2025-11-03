@@ -1,0 +1,23 @@
+{
+  "name": "food-gasm",
+  "version": "1.0.0",
+  "description": "Food Ordering Web App UI Demo",
+  "main": "index.js",
+  "scripts": {
+    "start": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "jest"
+  },
+  "keywords": [
+    "food-ordering-web-app",
+    "frontend-practise"
+  ],
+  "author": "Shakti Srivastava",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "vite": "^7.1.12"
+  }
+}
