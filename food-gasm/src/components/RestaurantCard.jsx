@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { IMAGE_CDN_URL } from "../utilities/constants";
 
 
-export const RestaurantCardComponent = ({ data }) => {
+const RestaurantCardComponent = ({ data }) => {
   if (!data) return null;
-  const IMG_URL =
-    "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/";
   const {
     name,
     cuisines,
@@ -16,17 +15,17 @@ export const RestaurantCardComponent = ({ data }) => {
     costForTwoMessage,
     aggregatedDiscountInfoV3,
   } = data;
+  const itemmDiscountInfo = `${aggregatedDiscountInfoV3?.header+aggregatedDiscountInfoV3?.subHeader}` || '';
   return (
     <article className="restaurant-card">
       <div className="media">
         <img
           className="restaurant-logo"
-          src={IMG_URL + cloudinaryImageId}
+          src={IMAGE_CDN_URL + cloudinaryImageId}
           alt="McDonald's"
         />
         <div className="ribbon">
-          {aggregatedDiscountInfoV3?.header +
-            aggregatedDiscountInfoV3?.subHeader}
+          {itemmDiscountInfo}
         </div>
       </div>
       <div className="restaurant-info">
@@ -52,3 +51,5 @@ export const RestaurantCardComponent = ({ data }) => {
     </article>
   );
 };
+
+export default RestaurantCardComponent;

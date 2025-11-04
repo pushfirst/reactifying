@@ -1,34 +1,52 @@
 import React, { useEffect, useState } from "react";
-import ReactDOM from "react-dom/client";
 
-import {RestaurantCardComponent} from "./RestaurantCard";
-import { fetchRestaurants } from "../../swiggy-live-api-call";
-import dummyData from "../../dummy-feed.json";
+import RestaurantCardComponent from "./RestaurantCard";
+import { fetchRestaurants } from "../api/swiggy-live-api-call";
+import ShimmerCard from "./ShimmerCard";
 
-const restaurants = JSON.parse(JSON.stringify(dummyData.restaurants));
+const BodyComponent = () => {
+  const [listOfRestaurants, setlistOfRestaurants] = useState([]);
+  const [filteredListOfRestaurants, setFilteredListOfRestaurants] = useState([]);
+  const [searchText, setSearchText] = useState('');
 
-export const BodyComponent = () => {
-//   const [restaurants, setRestaurants] = useState([]);
-//   const [loading, setLoading] = useState(true);
-//   const [error, setError] = useState(null);
-//   useEffect(() => {
-//     (async () => {
-//       try {
-//         const data = await fetchRestaurants("26.83730", "80.91650");
-//         setRestaurants(data);
-//       } catch (err) {
-//         console.error("Fetch failed:", err);
-//         setError(err.message);
-//       } finally {
-//         setLoading(false);
-//       }
-//     })();
-//   }, []);
-  return (
+  useEffect(() => {
+    (async () => {
+      try {
+        const data = await fetchRestaurants("26.83730", "80.91650");
+        setlistOfRestaurants(data);
+        setFilteredListOfRestaurants(data);
+      } catch (err) {
+        console.error("Fetch failed:", err);
+      } finally {
+        console.log('do nothing!')
+      }
+    })();
+  }, []);
+
+  // Conditional Rendering
+  return (listOfRestaurants.length === 0) ? <ShimmerCard /> : (
     <div className="body">
-      <div className="Search">Search</div>
+      <div className="filter">
+        <div className="search">
+            <input type="text" className="search-bar" value= {searchText} onChange={(elem) => {
+                if((elem.target.value).length === 0) {
+                    setFilteredListOfRestaurants(listOfRestaurants);
+                }
+                setSearchText(elem.target.value);
+                }
+                }/>
+            <button onClick={()=> {
+                const filteredRestaurants = listOfRestaurants.filter(restaurant=> restaurant.info.name.toLowerCase().includes(searchText.toLowerCase()));
+                setFilteredListOfRestaurants(filteredRestaurants);
+            }}>Search</button>
+        </div>
+        {/* <button className="login-button" onClick={() => {
+            const filteredList = listOfRestaurants.filter(restaurant => parseFloat(restaurant.info.avgRating) > 4.40);
+            setlistOfRestaurants(filteredList);
+        }}>Top Rated Restaurant</button> */}
+      </div>
       <div className="restaurants-container">
-        {restaurants.map((data) => {
+        {filteredListOfRestaurants.map((data) => {
           return (
             <RestaurantCardComponent key={data.info.id} data={data.info} />
           );
@@ -37,3 +55,5 @@ export const BodyComponent = () => {
     </div>
   );
 };
+
+export default BodyComponent;

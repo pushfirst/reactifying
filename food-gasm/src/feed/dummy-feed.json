@@ -576,7 +576,10 @@
         },
         "badges": {},
         "isOpen": true,
-        "aggregatedDiscountInfoV2": {},
+        "aggregatedDiscountInfoV2": {
+          "header": "ITEMS",
+          "subHeader": "AT ₹117"
+        },
         "type": "F",
         "badgesV2": {
           "entityBadges": {
