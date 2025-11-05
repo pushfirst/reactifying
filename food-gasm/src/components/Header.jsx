@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import logo from "/assets/images/logo.avif";
 import { Link } from "react-router-dom";
+import useNetworkStatus from "../utilities/useNetworkStatus";
 
 const HeaderComponent = () => {
   // let buttonName = "Login";
   const [buttonName, setButtonName] = useState("Login");
+  const onlineStatus = useNetworkStatus();
   return (
     <div className="header">
       <div className="image-container">
@@ -13,6 +15,7 @@ const HeaderComponent = () => {
       </div>
       <div className="nav-items">
         <ul>
+          <li>{onlineStatus ? "🟢" : "🔴"}</li>
           <li>
             <Link to="/">Home🏠</Link>
           </li>
@@ -21,6 +24,9 @@ const HeaderComponent = () => {
           </li>
           <li>
             <Link to="/contact">Contact US🤙</Link>
+          </li>
+          <li>
+            <Link to="/grocery">Grocery🤙</Link>
           </li>
           <li>Cart 🛒</li>
           <button

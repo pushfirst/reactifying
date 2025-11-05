@@ -1,28 +1,12 @@
 import React, { useEffect, useState } from "react";
-import ShimmerCard from "./ShimmerCard";
-import extractMenuItems from "../utilities/fetchMenuItems";
 import { useParams } from "react-router-dom";
 
-const RestaurantMenu = () => {
-  const [restaurantInfo, setRestaurantInfo] = useState(null);
-  const { restaurantId } = useParams();
-  useEffect(() => {
-    getRestaurantMenu(restaurantId);
-  }, []);
+import ShimmerCard from "./ShimmerCard";
+import useRestaurantMenu from "../utilities/useRestaurantMenu";
 
-  async function getRestaurantMenu(restaurantId) {
-    try {
-      const res = await fetch(
-        "http://localhost:3002/menu?lat=26.83730&lng=80.91650&restaurantId="+{restaurantId}
-      );
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const json = await res.json();
-      setRestaurantInfo(extractMenuItems(json.data));
-      
-    } catch (error) {
-      console.error("Error fetching menu:", error);
-    }
-  }
+const RestaurantMenu = () => {
+  const { restaurantId } = useParams();
+ const restaurantInfo = useRestaurantMenu(restaurantId);
 
   if (restaurantInfo === null) return <ShimmerCard />;
 

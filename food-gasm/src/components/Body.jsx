@@ -4,6 +4,8 @@ import RestaurantCardComponent from "./RestaurantCard";
 import { fetchRestaurants } from "../api/swiggy-live-api-call";
 import ShimmerCard from "./ShimmerCard";
 import { Link } from "react-router-dom";
+import useNetworkStatus from "../utilities/useNetworkStatus";
+
 
 const BodyComponent = () => {
   const [listOfRestaurants, setlistOfRestaurants] = useState([]);
@@ -26,6 +28,7 @@ const BodyComponent = () => {
     })();
   }, []);
 
+  if(!useNetworkStatus()) return (<h1>'Looks like you are Offline!! Please check your internet connection.'</h1>)
   // Conditional Rendering
   return listOfRestaurants.length === 0 ? (
     <ShimmerCard />
